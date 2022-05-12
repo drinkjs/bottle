@@ -4,6 +4,7 @@
   "main": "dist/main/index.cjs",
   "author": "草鞋没号 <308487730@qq.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "node scripts/watch.mjs",
     "prebuild": "vue-tsc --noEmit --p packages/renderer/tsconfig.json && node scripts/build.mjs",
@@ -11,7 +12,7 @@
     "init": "git config core.hooksPath .git/hooks/ && rm -rf .git/hooks && npx simple-git-hooks",
     "test:e2e": "npx playwright test",
     "test:e2e:headless": "npx playwright test --headed",
-    "esinit": "eslint --init"
+    "esinit": "eslint --init",
   },
   "engines": {
     "node": ">=14.17.0"
@@ -47,6 +48,8 @@
     "vue"
   ],
   "dependencies": {
+    "got": "^11.8.3",
+    "hpagent": "^1.0.0",
     "undici": "^5.1.1",
     "uuid": "^8.3.2"
   }

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2020",
+    "inlineSourceMap": true,
+    "outDir": "dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  }
+}

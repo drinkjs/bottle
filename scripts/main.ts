@@ -1,5 +1,5 @@
-import * as http from "http"
-import * as net from "net"
+import http from "http"
+import net from "net"
 import stream from "stream";
 import * as url from "url"
 
@@ -29,8 +29,8 @@ import * as https from "https"
 import * as fs from "fs"
 
 const options = {
-  key: fs.readFileSync('./src/key.pem'),
-  cert: fs.readFileSync('./src/certificate.cer')
+  key: fs.readFileSync('./scripts/key.pem'),
+  cert: fs.readFileSync('./scripts/certificate.cer')
 };
 
 https.createServer(options, (req, res) => {
