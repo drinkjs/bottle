@@ -6,7 +6,7 @@ function connect(cReq, cSock) {
 
   console.log("======dfdfd onconnect")
 
-    var u = url.parse(cReq.url);
+    var u = url.parse('https://'+cReq.url);
 
     console.log("==============xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", u);
 
