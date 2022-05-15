@@ -1,24 +1,27 @@
-import { Client, connect as conn } from 'undici'
-import { Duplex, finished } from 'stream'
+// import { Client, connect as conn } from 'undici'
+// import { Duplex, finished } from 'stream'
 import * as http from 'http'
 import * as https from "https"
 import * as net from "net"
 import * as tls from "tls"
+import HTTPParser from "./HTTPParser"
 
 const agent = new https.Agent({
   keepAlive: true,
   scheduling: "fifo"
 })
 
+const p = new HTTPParser(HTTPParser.RESPONSE);
+
 
 const requestOptions = {
   method: 'CONNECT',
   host: "52.188.16.167",
   port: 8084,
-  path: `www.footlocker.com:443`,
+  path: `www.baidu.com:443`,
   // servername:"localhost",
   setHost: false,
-  headers: { connection: 'keep-alive', host: `www.footlocker.com:443` },
+  headers: { connection: 'keep-alive', host: `www.baidu.com:443` },
   agent: false,
   timeout: 0,
 }
@@ -37,17 +40,17 @@ class ProxyAgent extends https.Agent {
       // proxyReq.removeAllListeners()
       // socket.removeAllListeners()
 
-      socket.on("close", ()=>{
-        console.log("-----------------------ddddddddddddddd--close")
-      });
+      // socket.on("close", ()=>{
+      //   console.log("-----------------------ddddddddddddddd--close")
+      // });
 
-      socket.on("error", (err)=>{
-        console.log("================error", err)
-      });
+      // socket.on("error", (err)=>{
+      //   console.log("================error", err)
+      // });
 
-      socket.on("data", (data)=>{
-        console.log("--------------------sokcet", data.toString());
-      })
+      // socket.on("data", (data)=>{
+      //   console.log("--------------------sokcet", data.toString());
+      // })
 
 
 
@@ -60,20 +63,21 @@ class ProxyAgent extends https.Agent {
       //   console.log("============keylog", log)
       // });
       // tlsConn.connect({
-      //   host:"www.footlocker.com",
+      //   host:"www.baidu.com",
       //   port:443,
       // })
 
       const tlsConn = tls.connect({
-        host:"www.footlocker.com",
+        host:"www.baidu.com",
         port:443,
         // rejectUnauthorized:false,
         // requestCert:false,
-        servername:"www.footlocker.com",
+        servername:"www.baidu.com",
         socket
       }, ()=>{
-        tlsConn.write("GET /product/~/Y6317GSB.html HTTP/1.1\r\nHost: www.footlocker.com\r\nuser-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36\r\n\r\n");
+        tlsConn.write("GET / HTTP/1.1\r\nHost: www.baidu.com\r\n\r\n");
       });
+      tlsConn.setNoDelay(true);
 
       tlsConn.on("error", (err)=>{
         console.log("tls error", err)
@@ -81,13 +85,28 @@ class ProxyAgent extends https.Agent {
 
       tlsConn.on("close", ()=>{
         console.log("==========tls close===");
+      });
+
+      tlsConn.on("data", (buf)=>{
+        p.execute(buf);
       })
       
 
-      tlsConn.on("data", (data)=>{
-        console.log("==========tls data===", data.toString());
-        // tlsConn.end();
-      })
+      // let datas = []
+      // tlsConn.on("readable", ()=>{
+      //   while(true){
+      //     const chunk = tlsConn.read()
+      //     if (chunk === null) {
+            
+      //       break
+      //     }
+      //     datas.push(chunk)
+      //   }
+      // })
+
+      // tlsConn.on("end", ()=>{
+      //   console.log("==========tls data read===", datas.toString());
+      // })
       
     });
 
@@ -109,7 +128,7 @@ proxyAgent.createConnection({}, ()=>{
 
 // const req = https.request({
 //   method: "GET",
-//   hostname: "www.footlocker.com",
+//   hostname: "www.baidu.com",
 //   port: 443,
 //   path: "/",
 //   // agent: proxyAgent,
