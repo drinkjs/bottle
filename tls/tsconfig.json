@@ -1,24 +1,15 @@
 {
-  "compilerOptions":{
-    "outDir":"./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports":true,
-    "experimentalDecorators":true,
-    "emitDecoratorMetadata":true,
-    "sourceMap":false,
-    "baseUrl": ".",
-    "strict": true,
-    "paths": {
-      "@/*": ["render/*"],
-      "~/*": ["main/*"],
-    }
-  },
-  "exclude": [
-    "第三方"
-  ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2020",
+    "inlineSourceMap": true,
+    "outDir": "dist",
+    "incremental": true,
+    "skipLibCheck": true
+  }
 }
